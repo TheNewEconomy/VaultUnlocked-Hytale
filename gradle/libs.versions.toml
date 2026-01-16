@@ -1,0 +1,13 @@
+[versions]
+jetbrains-annotations = "26.0.2-1"
+jspecify = "1.0.0"
+vault-unlocked-api = "2.18"
+
+[libraries]
+jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains-annotations" }
+jspecify = { module = "org.jspecify:jspecify", version.ref = "jspecify" }
+vault-unlocked-api = { module = "net.milkbowl.vault:VaultUnlockedAPI", version.ref = "vault-unlocked-api" }
+
+[bundles]
+
+[plugins]

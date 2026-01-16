@@ -156,7 +156,6 @@ You choose the implementations — VaultUnlocked connects them.
 ## Summary
 
 VaultUnlocked for Hytale brings **consistency, stability, and familiarity** to a new ecosystem — without forcing developers to relearn or rewrite.
-
-Same API.
-Same philosophy.
-Now for Hytale.
+- Same API.
+- Same philosophy.
+- Now for Hytale.

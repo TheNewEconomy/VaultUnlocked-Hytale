@@ -96,8 +96,8 @@ Plugins can retrieve active services at any time using the same manager.
 VaultUnlockedServicesManager services = VaultUnlockedServicesManager.get();
 
 Economy economy = services.economyObj();
-Permission permission = services.permissionObj();
-Chat chat = services.chatObj();
+PermissionUnlocked permission = services.permissionObj();
+ChatUnlocked chat = services.chatObj();
 ```
 
 If a service is unavailable, VaultUnlocked safely handles the absence so plugins can gracefully degrade.

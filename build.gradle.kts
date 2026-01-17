@@ -6,7 +6,7 @@ plugins {
 
 group = "net.cfh.vault"
 val vuApiVersion: String = "${findProperty("plugin_version")}"
-val vuRelVersion: String = ".0"
+val vuRelVersion: String = ".1"
 version = vuApiVersion.plus(vuRelVersion)
 description = "VaultUnlocked is a Chat, Permissions & Economy API to allow plugins to more easily" +
         " hook into these systems without needing to hook each individual system themselves."

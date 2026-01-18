@@ -83,6 +83,16 @@ public class VaultUnlockedServicesManager {
   }
 
   /**
+   * Removes the specified economy provider from the internal lists of providers.
+   *
+   * @param provider the economy provider to be removed; must not be null.
+   */
+  public void unregister(final @NotNull Economy provider) {
+    economyProviderNames.remove(provider.getName());
+    economyProviders.remove(provider.getName());
+  }
+
+  /**
    * Retrieves the primary {@link Economy} instance currently managed by this service.
    *
    * @return an {@link Optional} containing the managed {@link Economy} instance,
@@ -161,6 +171,18 @@ public class VaultUnlockedServicesManager {
   public void permission(final @NotNull PermissionUnlocked provider) {
     permissionProviderNames.add(provider.getName());
     permissionProviders.put(provider.getName(), provider);
+  }
+
+  /**
+   * Unregisters the specified permission provider by removing its associated
+   * entries from the internal collections.
+   *
+   * @param provider the permission provider to be unregistered,
+   *                 must not be null
+   */
+  public void unregister(final @NotNull PermissionUnlocked provider) {
+    permissionProviderNames.remove(provider.getName());
+    permissionProviders.remove(provider.getName());
   }
 
   /**
@@ -247,6 +269,17 @@ public class VaultUnlockedServicesManager {
   public void chat(final @NotNull ChatUnlocked provider) {
     chatProviderNames.add(provider.getName());
     chatProviders.put(provider.getName(), provider);
+  }
+
+  /**
+   * Unregisters a given chat provider by removing its name and reference
+   * from the internal collections.
+   *
+   * @param provider The chat provider to unregister. Must not be null.
+   */
+  public void unregister(final @NotNull ChatUnlocked provider) {
+    chatProviderNames.remove(provider.getName());
+    chatProviders.remove(provider.getName());
   }
 
   /**

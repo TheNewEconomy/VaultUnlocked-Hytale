@@ -197,6 +197,7 @@ tasks.register("download-server") {
 
         if (!hytaleZip.get().asFile.exists()) {
             val credentials = System.getenv("HYTALE_DOWNLOADER_CREDENTIALS")
+            println("Hytale downloader credentials: $credentials")
             if (!credentials.isNullOrBlank()) {
                 if (!credentialsFile.asFile.exists()) {
                     credentialsFile.asFile.writeText(credentials)

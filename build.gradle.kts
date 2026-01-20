@@ -19,7 +19,9 @@ repositories {
     maven("https://maven.hytale-modding.info/releases") {
         name = "HytaleModdingReleases"
     }
-    maven("https://repo.codemc.io/repository/creatorfromhell/")
+    maven("https://repo.codemc.io/repository/creatorfromhell/") {
+        name = "VaultUnlocked"
+    }
     maven("https://nexus.lucko.me/repository/maven-hytale/") {
         name = "lucko"
     }
@@ -45,7 +47,7 @@ tasks.named<ProcessResources>("processResources") {
         "plugin_group" to findProperty("plugin_group"),
         "plugin_maven_group" to project.group,
         "plugin_name" to project.name,
-        "plugin_version" to findProperty("plugin_version"),
+        "plugin_version" to version,
         "server_version" to findProperty("server_version"),
 
         "plugin_description" to findProperty("plugin_description"),

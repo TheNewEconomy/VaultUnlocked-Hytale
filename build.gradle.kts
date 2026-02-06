@@ -6,7 +6,7 @@ plugins {
 
 group = "net.cfh.vault"
 val vuApiVersion: String = "${findProperty("plugin_version")}"
-val vuRelVersion: String = ".2"
+val vuRelVersion: String = ".0"
 version = vuApiVersion.plus(vuRelVersion)
 description = "VaultUnlocked is a Chat, Permissions & Economy API to allow plugins to more easily" +
         " hook into these systems without needing to hook each individual system themselves."
@@ -36,6 +36,7 @@ dependencies {
         logger.warn("Hytale Assets.zip not found at: ${hytaleAssets.absolutePath}")
     }
     shadow(libs.vault.unlocked.api)
+    //shadow(files("lib/hytale-4.0.0-rc.14-all.jar"))
 }
 
 java {
@@ -51,7 +52,7 @@ tasks.named<ProcessResources>("processResources") {
         "plugin_group" to findProperty("plugin_group"),
         "plugin_maven_group" to project.group,
         "plugin_name" to project.name,
-        "plugin_version" to findProperty("plugin_version"),
+        "plugin_version" to version,
         "server_version" to findProperty("server_version"),
 
         "plugin_description" to findProperty("plugin_description"),

@@ -13,30 +13,25 @@ description = "VaultUnlocked is a Chat, Permissions & Economy API to allow plugi
 val vuWebsite: String = "https://cfh.dev"
 val javaVersion = 25
 
-val appData = System.getenv("APPDATA") ?: (System.getenv("HOME") + "/.var/app/com.hypixel.HytaleLauncher/data")
-val hytaleAssets = file("$appData/Hytale/install/release/package/game/latest/Assets.zip")
-
 
 repositories {
     mavenCentral()
     maven("https://maven.hytale-modding.info/releases") {
         name = "HytaleModdingReleases"
     }
-    maven("https://repo.codemc.io/repository/creatorfromhell/")
+    maven("https://repo.codemc.io/repository/creatorfromhell/") {
+        name = "VaultUnlocked"
+    }
+    maven("https://nexus.lucko.me/repository/maven-hytale/") {
+        name = "lucko"
+    }
 }
 
 dependencies {
     compileOnly(libs.jetbrains.annotations)
     compileOnly(libs.jspecify)
-
-    if (hytaleAssets.exists()) {
-        compileOnly(files(hytaleAssets))
-    } else {
-        // Optional: Print a warning so you know why it's missing
-        logger.warn("Hytale Assets.zip not found at: ${hytaleAssets.absolutePath}")
-    }
+    compileOnly("com.hypixel.hytale:HytaleServer:2026.01.17-4b0f30090-20260119.081336-1")
     shadow(libs.vault.unlocked.api)
-    //shadow(files("lib/hytale-4.0.0-rc.14-all.jar"))
 }
 
 java {
@@ -48,7 +43,7 @@ java {
 }
 
 tasks.named<ProcessResources>("processResources") {
-    var replaceProperties = mapOf(
+    val replaceProperties = mapOf(
         "plugin_group" to findProperty("plugin_group"),
         "plugin_maven_group" to project.group,
         "plugin_name" to project.name,
@@ -152,27 +147,6 @@ idea {
     }
 }
 
-val syncAssets = tasks.register<Copy>("syncAssets") {
-    group = "hytale"
-    description = "Automatically syncs assets from Build back to Source after server stops."
-
-    // Take from the temporary build folder (Where the game saved changes)
-    from(layout.buildDirectory.dir("resources/main"))
-
-    // Copy into your actual project source (Where your code lives)
-    into("src/main/resources")
-
-    // IMPORTANT: Protect the manifest template from being overwritten
-    exclude("manifest.json")
-
-    // If a file exists, overwrite it with the new version from the game
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
-
-    doLast {
-        println("✅ Assets successfully synced from Game to Source Code!")
-    }
-}
-
 tasks {
     compileJava {
         sourceCompatibility = "25"
@@ -196,17 +170,5 @@ tasks {
         }
 
         outputs.upToDateWhen { false }
-    }
-}
-
-afterEvaluate {
-    // Now Gradle will find it, because the plugin has finished working
-    val targetTask = tasks.findByName("runServer") ?: tasks.findByName("server")
-
-    if (targetTask != null) {
-        targetTask.finalizedBy(syncAssets)
-        logger.lifecycle("✅ specific task '${targetTask.name}' hooked for auto-sync.")
-    } else {
-        logger.warn("⚠️ Could not find 'runServer' or 'server' task to hook auto-sync into.")
     }
 }
